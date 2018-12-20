@@ -1,0 +1,29 @@
+{
+  "name": "lambda-notes-back-end",
+  "version": "1.0.0",
+  "description": "fullstack note taking application",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon index.js",
+    "test": "jest --verbose --watchAll"
+  },
+  "repository": "https://github.com/ryanboris/lambda-notes-back-end.git",
+  "author": "Ryan Boris <ryan.boris@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "apollo-server": "^2.3.1",
+    "apollo-server-express": "^2.3.1",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "graphql": "^14.0.2",
+    "jsonwebtoken": "^8.4.0",
+    "mongodb": "^3.1.10",
+    "mongoose": "^5.4.0",
+    "prisma-client-lib": "^1.23.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  }
+}
