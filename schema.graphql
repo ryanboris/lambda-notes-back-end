@@ -1,0 +1,23 @@
+type Query {
+  notes: [Note!]!
+  note(noteId: ID!): Note
+  notesByUser(userId: ID!): [Note!]!
+}
+
+type Mutation {
+  createUser(name: String!): User
+  createNote(title: String!, textbody: String!, userId: ID!): Note
+}
+
+type User {
+  id: ID!
+  name: String!
+  notes: [Note!]!
+}
+
+type Note {
+  id: ID!
+  title: String!
+  textbody: String!
+  author: User
+}
