@@ -42,6 +42,7 @@ type Note {
   id: ID!
   title: String!
   textbody: String!
+  author: User
 }
 
 type NoteConnection {
@@ -51,6 +52,17 @@ type NoteConnection {
 }
 
 input NoteCreateInput {
+  title: String!
+  textbody: String!
+  author: UserCreateOneWithoutNotesInput
+}
+
+input NoteCreateManyWithoutAuthorInput {
+  create: [NoteCreateWithoutAuthorInput!]
+  connect: [NoteWhereUniqueInput!]
+}
+
+input NoteCreateWithoutAuthorInput {
   title: String!
   textbody: String!
 }
@@ -75,6 +87,54 @@ type NotePreviousValues {
   textbody: String!
 }
 
+input NoteScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  textbody: String
+  textbody_not: String
+  textbody_in: [String!]
+  textbody_not_in: [String!]
+  textbody_lt: String
+  textbody_lte: String
+  textbody_gt: String
+  textbody_gte: String
+  textbody_contains: String
+  textbody_not_contains: String
+  textbody_starts_with: String
+  textbody_not_starts_with: String
+  textbody_ends_with: String
+  textbody_not_ends_with: String
+  AND: [NoteScalarWhereInput!]
+  OR: [NoteScalarWhereInput!]
+  NOT: [NoteScalarWhereInput!]
+}
+
 type NoteSubscriptionPayload {
   mutation: MutationType!
   node: Note
@@ -96,11 +156,49 @@ input NoteSubscriptionWhereInput {
 input NoteUpdateInput {
   title: String
   textbody: String
+  author: UserUpdateOneWithoutNotesInput
+}
+
+input NoteUpdateManyDataInput {
+  title: String
+  textbody: String
 }
 
 input NoteUpdateManyMutationInput {
   title: String
   textbody: String
+}
+
+input NoteUpdateManyWithoutAuthorInput {
+  create: [NoteCreateWithoutAuthorInput!]
+  delete: [NoteWhereUniqueInput!]
+  connect: [NoteWhereUniqueInput!]
+  disconnect: [NoteWhereUniqueInput!]
+  update: [NoteUpdateWithWhereUniqueWithoutAuthorInput!]
+  upsert: [NoteUpsertWithWhereUniqueWithoutAuthorInput!]
+  deleteMany: [NoteScalarWhereInput!]
+  updateMany: [NoteUpdateManyWithWhereNestedInput!]
+}
+
+input NoteUpdateManyWithWhereNestedInput {
+  where: NoteScalarWhereInput!
+  data: NoteUpdateManyDataInput!
+}
+
+input NoteUpdateWithoutAuthorDataInput {
+  title: String
+  textbody: String
+}
+
+input NoteUpdateWithWhereUniqueWithoutAuthorInput {
+  where: NoteWhereUniqueInput!
+  data: NoteUpdateWithoutAuthorDataInput!
+}
+
+input NoteUpsertWithWhereUniqueWithoutAuthorInput {
+  where: NoteWhereUniqueInput!
+  update: NoteUpdateWithoutAuthorDataInput!
+  create: NoteCreateWithoutAuthorInput!
 }
 
 input NoteWhereInput {
@@ -180,6 +278,8 @@ type Subscription {
 type User {
   id: ID!
   name: String!
+  email: String
+  notes(where: NoteWhereInput, orderBy: NoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Note!]
 }
 
 type UserConnection {
@@ -190,6 +290,18 @@ type UserConnection {
 
 input UserCreateInput {
   name: String!
+  email: String
+  notes: NoteCreateManyWithoutAuthorInput
+}
+
+input UserCreateOneWithoutNotesInput {
+  create: UserCreateWithoutNotesInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutNotesInput {
+  name: String!
+  email: String
 }
 
 type UserEdge {
@@ -202,11 +314,14 @@ enum UserOrderByInput {
   id_DESC
   name_ASC
   name_DESC
+  email_ASC
+  email_DESC
 }
 
 type UserPreviousValues {
   id: ID!
   name: String!
+  email: String
 }
 
 type UserSubscriptionPayload {
@@ -229,10 +344,32 @@ input UserSubscriptionWhereInput {
 
 input UserUpdateInput {
   name: String
+  email: String
+  notes: NoteUpdateManyWithoutAuthorInput
 }
 
 input UserUpdateManyMutationInput {
   name: String
+  email: String
+}
+
+input UserUpdateOneWithoutNotesInput {
+  create: UserCreateWithoutNotesInput
+  update: UserUpdateWithoutNotesDataInput
+  upsert: UserUpsertWithoutNotesInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: UserWhereUniqueInput
+}
+
+input UserUpdateWithoutNotesDataInput {
+  name: String
+  email: String
+}
+
+input UserUpsertWithoutNotesInput {
+  update: UserUpdateWithoutNotesDataInput!
+  create: UserCreateWithoutNotesInput!
 }
 
 input UserWhereInput {
@@ -264,6 +401,20 @@ input UserWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  email: String
+  email_not: String
+  email_in: [String!]
+  email_not_in: [String!]
+  email_lt: String
+  email_lte: String
+  email_gt: String
+  email_gte: String
+  email_contains: String
+  email_not_contains: String
+  email_starts_with: String
+  email_not_starts_with: String
+  email_ends_with: String
+  email_not_ends_with: String
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]
@@ -271,6 +422,7 @@ input UserWhereInput {
 
 input UserWhereUniqueInput {
   id: ID
+  email: String
 }
 `
       }

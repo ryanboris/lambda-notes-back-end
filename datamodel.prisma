@@ -1,10 +1,13 @@
 type User {
   id: ID! @id
   name: String!
+  email: String @unique
+  notes: [Note!]! @relation(link: INLINE)
 }
 
 type Note {
   id: ID! @id
   title: String!
   textbody: String!
+  author: User
 }

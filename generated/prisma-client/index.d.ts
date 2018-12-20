@@ -154,32 +154,32 @@ export type NoteOrderByInput =
   | "textbody_ASC"
   | "textbody_DESC";
 
-export type UserOrderByInput = "id_ASC" | "id_DESC" | "name_ASC" | "name_DESC";
+export type UserOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "name_ASC"
+  | "name_DESC"
+  | "email_ASC"
+  | "email_DESC";
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
-export interface UserCreateInput {
-  name: String;
+export interface UserUpdateOneWithoutNotesInput {
+  create?: UserCreateWithoutNotesInput;
+  update?: UserUpdateWithoutNotesDataInput;
+  upsert?: UserUpsertWithoutNotesInput;
+  delete?: Boolean;
+  disconnect?: Boolean;
+  connect?: UserWhereUniqueInput;
 }
 
 export type NoteWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
 }>;
 
-export interface NoteUpdateInput {
+export interface NoteUpdateManyMutationInput {
   title?: String;
   textbody?: String;
-}
-
-export interface NoteSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: NoteWhereInput;
-  AND?: NoteSubscriptionWhereInput[] | NoteSubscriptionWhereInput;
-  OR?: NoteSubscriptionWhereInput[] | NoteSubscriptionWhereInput;
-  NOT?: NoteSubscriptionWhereInput[] | NoteSubscriptionWhereInput;
 }
 
 export interface NoteWhereInput {
@@ -230,6 +230,49 @@ export interface NoteWhereInput {
   NOT?: NoteWhereInput[] | NoteWhereInput;
 }
 
+export interface NoteCreateInput {
+  title: String;
+  textbody: String;
+  author?: UserCreateOneWithoutNotesInput;
+}
+
+export interface NoteCreateManyWithoutAuthorInput {
+  create?: NoteCreateWithoutAuthorInput[] | NoteCreateWithoutAuthorInput;
+  connect?: NoteWhereUniqueInput[] | NoteWhereUniqueInput;
+}
+
+export interface UserCreateOneWithoutNotesInput {
+  create?: UserCreateWithoutNotesInput;
+  connect?: UserWhereUniqueInput;
+}
+
+export interface NoteSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: NoteWhereInput;
+  AND?: NoteSubscriptionWhereInput[] | NoteSubscriptionWhereInput;
+  OR?: NoteSubscriptionWhereInput[] | NoteSubscriptionWhereInput;
+  NOT?: NoteSubscriptionWhereInput[] | NoteSubscriptionWhereInput;
+}
+
+export interface UserCreateWithoutNotesInput {
+  name: String;
+  email?: String;
+}
+
+export interface NoteUpdateManyDataInput {
+  title?: String;
+  textbody?: String;
+}
+
+export interface NoteUpdateInput {
+  title?: String;
+  textbody?: String;
+  author?: UserUpdateOneWithoutNotesInput;
+}
+
 export interface UserWhereInput {
   id?: ID_Input;
   id_not?: ID_Input;
@@ -259,27 +302,91 @@ export interface UserWhereInput {
   name_not_starts_with?: String;
   name_ends_with?: String;
   name_not_ends_with?: String;
+  email?: String;
+  email_not?: String;
+  email_in?: String[] | String;
+  email_not_in?: String[] | String;
+  email_lt?: String;
+  email_lte?: String;
+  email_gt?: String;
+  email_gte?: String;
+  email_contains?: String;
+  email_not_contains?: String;
+  email_starts_with?: String;
+  email_not_starts_with?: String;
+  email_ends_with?: String;
+  email_not_ends_with?: String;
   AND?: UserWhereInput[] | UserWhereInput;
   OR?: UserWhereInput[] | UserWhereInput;
   NOT?: UserWhereInput[] | UserWhereInput;
 }
 
-export interface NoteCreateInput {
-  title: String;
-  textbody: String;
+export interface NoteUpdateWithWhereUniqueWithoutAuthorInput {
+  where: NoteWhereUniqueInput;
+  data: NoteUpdateWithoutAuthorDataInput;
 }
 
-export type UserWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-}>;
+export interface NoteScalarWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  title?: String;
+  title_not?: String;
+  title_in?: String[] | String;
+  title_not_in?: String[] | String;
+  title_lt?: String;
+  title_lte?: String;
+  title_gt?: String;
+  title_gte?: String;
+  title_contains?: String;
+  title_not_contains?: String;
+  title_starts_with?: String;
+  title_not_starts_with?: String;
+  title_ends_with?: String;
+  title_not_ends_with?: String;
+  textbody?: String;
+  textbody_not?: String;
+  textbody_in?: String[] | String;
+  textbody_not_in?: String[] | String;
+  textbody_lt?: String;
+  textbody_lte?: String;
+  textbody_gt?: String;
+  textbody_gte?: String;
+  textbody_contains?: String;
+  textbody_not_contains?: String;
+  textbody_starts_with?: String;
+  textbody_not_starts_with?: String;
+  textbody_ends_with?: String;
+  textbody_not_ends_with?: String;
+  AND?: NoteScalarWhereInput[] | NoteScalarWhereInput;
+  OR?: NoteScalarWhereInput[] | NoteScalarWhereInput;
+  NOT?: NoteScalarWhereInput[] | NoteScalarWhereInput;
+}
 
-export interface UserUpdateManyMutationInput {
+export interface UserUpdateWithoutNotesDataInput {
   name?: String;
+  email?: String;
 }
 
-export interface NoteUpdateManyMutationInput {
+export interface NoteUpdateWithoutAuthorDataInput {
   title?: String;
   textbody?: String;
+}
+
+export interface UserUpsertWithoutNotesInput {
+  update: UserUpdateWithoutNotesDataInput;
+  create: UserCreateWithoutNotesInput;
 }
 
 export interface UserSubscriptionWhereInput {
@@ -293,29 +400,101 @@ export interface UserSubscriptionWhereInput {
   NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
 }
 
+export interface UserCreateInput {
+  name: String;
+  email?: String;
+  notes?: NoteCreateManyWithoutAuthorInput;
+}
+
+export interface NoteCreateWithoutAuthorInput {
+  title: String;
+  textbody: String;
+}
+
 export interface UserUpdateInput {
   name?: String;
+  email?: String;
+  notes?: NoteUpdateManyWithoutAuthorInput;
 }
+
+export interface NoteUpdateManyWithoutAuthorInput {
+  create?: NoteCreateWithoutAuthorInput[] | NoteCreateWithoutAuthorInput;
+  delete?: NoteWhereUniqueInput[] | NoteWhereUniqueInput;
+  connect?: NoteWhereUniqueInput[] | NoteWhereUniqueInput;
+  disconnect?: NoteWhereUniqueInput[] | NoteWhereUniqueInput;
+  update?:
+    | NoteUpdateWithWhereUniqueWithoutAuthorInput[]
+    | NoteUpdateWithWhereUniqueWithoutAuthorInput;
+  upsert?:
+    | NoteUpsertWithWhereUniqueWithoutAuthorInput[]
+    | NoteUpsertWithWhereUniqueWithoutAuthorInput;
+  deleteMany?: NoteScalarWhereInput[] | NoteScalarWhereInput;
+  updateMany?:
+    | NoteUpdateManyWithWhereNestedInput[]
+    | NoteUpdateManyWithWhereNestedInput;
+}
+
+export interface UserUpdateManyMutationInput {
+  name?: String;
+  email?: String;
+}
+
+export interface NoteUpsertWithWhereUniqueWithoutAuthorInput {
+  where: NoteWhereUniqueInput;
+  update: NoteUpdateWithoutAuthorDataInput;
+  create: NoteCreateWithoutAuthorInput;
+}
+
+export interface NoteUpdateManyWithWhereNestedInput {
+  where: NoteScalarWhereInput;
+  data: NoteUpdateManyDataInput;
+}
+
+export type UserWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+  email?: String;
+}>;
 
 export interface NodeNode {
   id: ID_Output;
 }
 
-export interface UserEdge {
-  node: User;
-  cursor: String;
+export interface BatchPayload {
+  count: Long;
 }
 
-export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
-  node: <T = UserPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface UserEdgeSubscription
-  extends Promise<AsyncIterator<UserEdge>>,
+export interface BatchPayloadPromise
+  extends Promise<BatchPayload>,
     Fragmentable {
-  node: <T = UserSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
+  count: () => Promise<Long>;
+}
+
+export interface BatchPayloadSubscription
+  extends Promise<AsyncIterator<BatchPayload>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Long>>;
+}
+
+export interface UserPreviousValues {
+  id: ID_Output;
+  name: String;
+  email?: String;
+}
+
+export interface UserPreviousValuesPromise
+  extends Promise<UserPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  email: () => Promise<String>;
+}
+
+export interface UserPreviousValuesSubscription
+  extends Promise<AsyncIterator<UserPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  email: () => Promise<AsyncIterator<String>>;
 }
 
 export interface PageInfo {
@@ -341,67 +520,6 @@ export interface PageInfoSubscription
   endCursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface UserPreviousValues {
-  id: ID_Output;
-  name: String;
-}
-
-export interface UserPreviousValuesPromise
-  extends Promise<UserPreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-}
-
-export interface UserPreviousValuesSubscription
-  extends Promise<AsyncIterator<UserPreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
-}
-
-export interface NoteConnection {
-  pageInfo: PageInfo;
-  edges: NoteEdge[];
-}
-
-export interface NoteConnectionPromise
-  extends Promise<NoteConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<NoteEdge>>() => T;
-  aggregate: <T = AggregateNotePromise>() => T;
-}
-
-export interface NoteConnectionSubscription
-  extends Promise<AsyncIterator<NoteConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<NoteEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateNoteSubscription>() => T;
-}
-
-export interface UserConnection {
-  pageInfo: PageInfo;
-  edges: UserEdge[];
-}
-
-export interface UserConnectionPromise
-  extends Promise<UserConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<UserEdge>>() => T;
-  aggregate: <T = AggregateUserPromise>() => T;
-}
-
-export interface UserConnectionSubscription
-  extends Promise<AsyncIterator<UserConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateUserSubscription>() => T;
-}
-
 export interface NoteSubscriptionPayload {
   mutation: MutationType;
   node: Note;
@@ -425,6 +543,44 @@ export interface NoteSubscriptionPayloadSubscription
   node: <T = NoteSubscription>() => T;
   updatedFields: () => Promise<AsyncIterator<String[]>>;
   previousValues: <T = NotePreviousValuesSubscription>() => T;
+}
+
+export interface AggregateNote {
+  count: Int;
+}
+
+export interface AggregateNotePromise
+  extends Promise<AggregateNote>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateNoteSubscription
+  extends Promise<AsyncIterator<AggregateNote>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface Note {
+  id: ID_Output;
+  title: String;
+  textbody: String;
+}
+
+export interface NotePromise extends Promise<Note>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  title: () => Promise<String>;
+  textbody: () => Promise<String>;
+  author: <T = UserPromise>() => T;
+}
+
+export interface NoteSubscription
+  extends Promise<AsyncIterator<Note>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  title: () => Promise<AsyncIterator<String>>;
+  textbody: () => Promise<AsyncIterator<String>>;
+  author: <T = UserSubscription>() => T;
 }
 
 export interface NotePreviousValues {
@@ -466,14 +622,48 @@ export interface NoteEdgeSubscription
   cursor: () => Promise<AsyncIterator<String>>;
 }
 
+export interface NoteConnection {
+  pageInfo: PageInfo;
+  edges: NoteEdge[];
+}
+
+export interface NoteConnectionPromise
+  extends Promise<NoteConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<NoteEdge>>() => T;
+  aggregate: <T = AggregateNotePromise>() => T;
+}
+
+export interface NoteConnectionSubscription
+  extends Promise<AsyncIterator<NoteConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<NoteEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateNoteSubscription>() => T;
+}
+
 export interface User {
   id: ID_Output;
   name: String;
+  email?: String;
 }
 
 export interface UserPromise extends Promise<User>, Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
+  email: () => Promise<String>;
+  notes: <T = FragmentableArray<Note>>(
+    args?: {
+      where?: NoteWhereInput;
+      orderBy?: NoteOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
 }
 
 export interface UserSubscription
@@ -481,6 +671,56 @@ export interface UserSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
+  email: () => Promise<AsyncIterator<String>>;
+  notes: <T = Promise<AsyncIterator<NoteSubscription>>>(
+    args?: {
+      where?: NoteWhereInput;
+      orderBy?: NoteOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+}
+
+export interface UserConnection {
+  pageInfo: PageInfo;
+  edges: UserEdge[];
+}
+
+export interface UserConnectionPromise
+  extends Promise<UserConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<UserEdge>>() => T;
+  aggregate: <T = AggregateUserPromise>() => T;
+}
+
+export interface UserConnectionSubscription
+  extends Promise<AsyncIterator<UserConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateUserSubscription>() => T;
+}
+
+export interface UserEdge {
+  node: User;
+  cursor: String;
+}
+
+export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
+  node: <T = UserPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface UserEdgeSubscription
+  extends Promise<AsyncIterator<UserEdge>>,
+    Fragmentable {
+  node: <T = UserSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface AggregateUser {
@@ -497,26 +737,6 @@ export interface AggregateUserSubscription
   extends Promise<AsyncIterator<AggregateUser>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface Note {
-  id: ID_Output;
-  title: String;
-  textbody: String;
-}
-
-export interface NotePromise extends Promise<Note>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  title: () => Promise<String>;
-  textbody: () => Promise<String>;
-}
-
-export interface NoteSubscription
-  extends Promise<AsyncIterator<Note>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  title: () => Promise<AsyncIterator<String>>;
-  textbody: () => Promise<AsyncIterator<String>>;
 }
 
 export interface UserSubscriptionPayload {
@@ -544,42 +764,12 @@ export interface UserSubscriptionPayloadSubscription
   previousValues: <T = UserPreviousValuesSubscription>() => T;
 }
 
-export interface BatchPayload {
-  count: Long;
-}
-
-export interface BatchPayloadPromise
-  extends Promise<BatchPayload>,
-    Fragmentable {
-  count: () => Promise<Long>;
-}
-
-export interface BatchPayloadSubscription
-  extends Promise<AsyncIterator<BatchPayload>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Long>>;
-}
-
-export interface AggregateNote {
-  count: Int;
-}
-
-export interface AggregateNotePromise
-  extends Promise<AggregateNote>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateNoteSubscription
-  extends Promise<AsyncIterator<AggregateNote>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
 /*
 The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
 */
 export type Int = number;
+
+export type Long = string;
 
 /*
 The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
@@ -587,17 +777,15 @@ The `ID` scalar type represents a unique identifier, often used to refetch an ob
 export type ID_Input = string | number;
 export type ID_Output = string;
 
-export type Long = string;
+/*
+The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
+*/
+export type String = string;
 
 /*
 The `Boolean` scalar type represents `true` or `false`.
 */
 export type Boolean = boolean;
-
-/*
-The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
-*/
-export type String = string;
 
 /**
  * Model Metadata
